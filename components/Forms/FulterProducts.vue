@@ -11,7 +11,7 @@
         <Panel items="Категории">
             <template v-slot:input></template>
             <template v-slot:data>
-                <b-form-checkbox-group>  
+                <b-form-group>  
                     <ChexboxCollapse
                         :dataset="categories.slice(0,5)"/>
                     <!--  ОСтальные   ЗАписей показывающиеся при клике -->
@@ -19,7 +19,7 @@
                             <ChexboxCollapse
                                 :dataset="categories.slice(5)" />
                     </b-collapse>
-                </b-form-checkbox-group>
+                </b-form-group>
             </template>
             <!-- ПЕРЕДЕЛАТЬ ЛОГИКУ -->
             <template v-slot:button>
