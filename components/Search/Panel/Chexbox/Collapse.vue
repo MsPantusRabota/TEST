@@ -66,7 +66,7 @@ import collapseRod from "./Collapse copy"
     },
     watch: {
       selected(newVal, oldVal) { 
-        console.log("Изменения");
+        console.log("Изменения родитель selected");
         if (newVal.length === 0) { // Родитель пустой
           // console.log("Родитель пуст");
           this.indeterminate = false;

@@ -27,11 +27,6 @@
                     :value="data.id.toString()">
                         {{ data.name}}
                 </b-form-checkbox>
-                <b-form-checkbox  v-show="false"
-                    v-if="data.children.length != 0"
-                    v-model="selected"
-                    :value="data.id.toString()" >
-                </b-form-checkbox>
                   <collapseRod
                     :name="data.name" 
                     :childrenAll="data.childrenAll"
@@ -71,7 +66,7 @@
     },
     watch: {
       model() {
-        console.log("Изменился"+ this.model);
+        console.log("Изменился selected наследник"+ this.model);
         this.allSelected = this.model;
       }, 
       selected(newVal, oldVal) { 
