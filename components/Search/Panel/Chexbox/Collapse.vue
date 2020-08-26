@@ -28,7 +28,7 @@
                         {{ data.name}}
                 </b-form-checkbox>
                   <collapseRod
-                    :model="selected"
+                    :model="selectedS"
                     :name="data.name" 
                     :childrenAll="data.childrenAll"
                     :id="data.id.toString()"  
@@ -58,6 +58,11 @@ import collapseRod from "./Collapse copy"
         chexboxSelected: false, // Для VUEX 
       }
     },
+    computed:{
+      selectedS(){
+        return this.selected;
+      }
+    },
     methods: {
       toggleAll(checked) {
         console.log(checked);
@@ -66,6 +71,7 @@ import collapseRod from "./Collapse copy"
     },
     watch: {
       selected(newVal, oldVal) { 
+          console.log(this);
         console.log("Изменения родитель selected");
         if (newVal.length === 0) { // Родитель пустой
           // console.log("Родитель пуст");

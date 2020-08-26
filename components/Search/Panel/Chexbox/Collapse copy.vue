@@ -28,6 +28,7 @@
                         {{ data.name}}
                 </b-form-checkbox>
                   <collapseRod
+                    :model="allSelected"
                     :name="data.name" 
                     :childrenAll="data.childrenAll"
                     :id="data.id.toString()"  
@@ -70,6 +71,8 @@
         this.allSelected = this.model;
       }, 
       selected(newVal, oldVal) { 
+        console.log("НОВОЕ ЗНАЧЕНИЕ "+ newVal);
+        console.log("СТАРОЕ ЗНАЧЕНИЕ "+ oldVal);
         if (newVal.length === 0) { // Родитель пустой
           // console.log("Родитель пуст");
           this.indeterminate = false;
