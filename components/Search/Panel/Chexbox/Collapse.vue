@@ -1,39 +1,22 @@
 <template>
     <b-form-group class="mb-2">
       <template v-slot:label>
-            <b-form-checkbox
-            v-model="allSelected"
-            :value="id"       
-            :indeterminate="indeterminate"
-            aria-describedby="flavours"
-            aria-controls="flavours"
-            @change="toggleAll">
-                {{ name }}
-                <b-button variant="white" class="link-danger p-0" v-b-toggle="id">
-                        <b-icon-chevron-down  font-scale = "0.9"></b-icon-chevron-down>
-                </b-button>
-            </b-form-checkbox>
+            <chexbox :dataset="dataset">
+              <b-button variant="white" class="link-danger p-0" v-b-toggle="dataset.id.toString()">
+                <b-icon-chevron-down  font-scale = "0.9"></b-icon-chevron-down>
+              </b-button>
+            </chexbox>
         </template>
         <!--  ПОТОМКИ -->
-         <b-collapse :id="id">
+         <b-collapse :id="dataset.id.toString()">
             <b-form-checkbox-group
                 class="ml-4 mb-2"
                 name="flavors"
-                v-for="data in flavours"
+                v-for="data in dataset.children"
                 :key="data.id">
-                <b-form-checkbox  
-                    v-if="data.children.length === 0"
-                    v-model="selected"
-                    :value="data.id.toString()">
-                        {{ data.name}}
-                </b-form-checkbox>
-                  <collapseRod
-                    :model="selectedS"
-                    :name="data.name" 
-                    :childrenAll="data.childrenAll"
-                    :id="data.id.toString()"  
-                    :GetName="GetName" 
-                    :flavours="data.children" 
+                <chexbox :dataset="data" v-if="data.children.length == 0" />
+                  <VueChexbox
+                    :dataset="data"
                     v-if="data.children.length != 0"/>
             </b-form-checkbox-group>
          </b-collapse>
@@ -42,50 +25,16 @@
 </template>
 
 <script>
-import collapseRod from "./Collapse copy"
+import chexbox from "./chexbox"
   export default {
-    components:{
-      collapseRod
-    },
     name: "VueChexbox",
     // GetName - Узнать почему неопределенно
-    props:["flavours", "id", "childrenAll", "GetName", "name"],
+    props:["dataset"],
     data() {
       return {
-        selected: [],
-        allSelected: [],
-        indeterminate: false,
-        chexboxSelected: false, // Для VUEX 
+
       }
     },
-    computed:{
-      selectedS(){
-        return this.selected;
-      }
-    },
-    methods: {
-      toggleAll(checked) {
-        console.log(checked);
-        this.selected = checked ? this.childrenAll.slice() : [];
-      },
-    },
-    watch: {
-      selected(newVal, oldVal) { 
-          console.log(this);
-        console.log("Изменения родитель selected");
-        if (newVal.length === 0) { // Родитель пустой
-          // console.log("Родитель пуст");
-          this.indeterminate = false;
-          this.allSelected = [];
-          
-        } else if (newVal.length === this.childrenAll.length) { // Родитель Полный
-          this.indeterminate = false;
-          this.allSelected = this.id;
-        } else { // Выбран потомок
-          this.indeterminate = true;
-          this.allSelected = this.id;
-        }
-      }
-    }
+
   }
 </script>

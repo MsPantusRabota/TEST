@@ -6,6 +6,7 @@
 export default {
     methods:{
         //  Обнулить форму!
+        // ТУТ БОЛЬ + убрать все chexbox
         Reset(event){
             event.preventDefault();
             this.$store.commit("formSearch/SetCategoriesChexbox", []);
